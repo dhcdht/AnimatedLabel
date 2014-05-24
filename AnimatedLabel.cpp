@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * \file AnimatedLabel.cpp
  *
  * \author dhcdht
@@ -243,6 +243,44 @@ void AnimatedLabel::setCharOffset(int index, cocos2d::Point offset)
 	charSprite->setPosition(offset);
 }
 
+void AnimatedLabel::setAllCharOffset(cocos2d::Point offset)
+{
+	for (int i = 0; i < getCharSpriteCount(); i++)
+	{
+		setCharOffset(i, offset);
+	}
+}
+
+void AnimatedLabel::setCharColor(int index, cocos2d::Color3B color)
+{
+	Sprite* charSprite = getCharSprite(index);
+	if (nullptr == charSprite)
+	{
+		return;
+	}
+
+	charSprite->setColor(color);
+}
+
+cocos2d::Color3B AnimatedLabel::getCharColor(int index)
+{
+	Sprite* charSprite = getCharSprite(index);
+	if (nullptr == charSprite)
+	{
+		return Color3B::WHITE;
+	}
+
+	return charSprite->getColor();
+}
+
+void AnimatedLabel::setAllCharColor(cocos2d::Color3B color)
+{
+	for (int i = 0; i < getCharSpriteCount(); i++)
+	{
+		setCharColor(i, color);
+	}
+}
+
 float AnimatedLabel::getCharScale(int index)
 {
 	Sprite* charSprite = getCharSprite(index);
@@ -263,6 +301,14 @@ void AnimatedLabel::setCharScale(int index, float scale)
 	}
 	
 	charSprite->setScale(scale);
+}
+
+void AnimatedLabel::setAllCharScale(float scale)
+{
+	for (int i = 0; i < getCharSpriteCount(); i++)
+	{
+		setCharScale(i, scale);
+	}
 }
 
 float AnimatedLabel::getCharOpacity(int index)
@@ -287,6 +333,14 @@ void AnimatedLabel::setCharOpacity(int index, float opacity)
 	charSprite->setOpacity(opacity);
 }
 
+void AnimatedLabel::setAllCharOpacity(float opacity)
+{
+	for (int i = 0; i < getCharSpriteCount(); i++)
+	{
+		setCharOpacity(i, opacity);
+	}
+}
+
 float AnimatedLabel::getCharRotation(int index)
 {
 	Sprite* charSprite = getCharSprite(index);
@@ -309,36 +363,12 @@ void AnimatedLabel::setCharRotation(int index, float rotation)
 	charSprite->setRotation(rotation);
 }
 
-void AnimatedLabel::setAllCharScale(float scale)
-{
-	for (int i = 0; i < getCharSpriteCount(); i++)
-	{
-		setCharScale(i, scale);
-	}
-}
-
-void AnimatedLabel::setAllCharOpacity(float opacity)
-{
-	for (int i = 0; i < getCharSpriteCount(); i++)
-	{
-		setCharOpacity(i, opacity);
-	}
-}
-
 void AnimatedLabel::setAllCharRotation(float rotation)
 {
 	for (int i = 0; i < getCharSpriteCount(); i++)
 	{
 		setCharRotation(i, rotation);
 	}	
-}
-
-void AnimatedLabel::setAllCharOffset(cocos2d::Point offset)
-{
-	for (int i = 0; i < getCharSpriteCount(); i++)
-	{
-		setCharOffset(i, offset);
-	}
 }
 
 #pragma mark - Run Custom Actions	//自定义动作
@@ -371,7 +401,10 @@ void AnimatedLabel::runActionOnSpriteAtIndex(int index, cocos2d::Action* action)
     
 	Action* actionCopy = action->clone();
     Sprite* charSprite = getCharSprite(index);
-	charSprite->runAction(actionCopy);
+	if (nullptr != charSprite)
+	{
+		charSprite->runAction(actionCopy);
+	}
 }
 
 void AnimatedLabel::runActionOnAllSprites(cocos2d::Action* action)
@@ -406,7 +439,10 @@ void AnimatedLabel::runActionOnSpriteAtIndex(
 	Sequence* delayAndAction = Sequence::create(delayTime, actionCopy, callFuncOnCompletion, nullptr);
 
 	Sprite* charSprite = getCharSprite(index);
-	charSprite->runAction(delayAndAction);
+	if (nullptr != charSprite)
+	{
+		charSprite->runAction(delayAndAction);
+	}
 }
 
 void AnimatedLabel::runActionOnAllSprites(

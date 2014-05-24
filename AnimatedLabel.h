@@ -1,4 +1,4 @@
-﻿/*!
+/*!
  * \file AnimatedLabel.h
  *
  * \author dhcdht
@@ -81,17 +81,23 @@ public:
 
 	cocos2d::Point getCharOffset(int index);
 	void setCharOffset(int index, cocos2d::Point offset);
+	void setAllCharOffset(cocos2d::Point offset);
+
+	void setCharColor(int index, cocos2d::Color3B color);
+	cocos2d::Color3B getCharColor(int index);
+	void setAllCharColor(cocos2d::Color3B color);
+
 	float getCharScale(int index);
 	void setCharScale(int index, float scale);
+	void setAllCharScale(float scale);
+
 	float getCharOpacity(int index);
 	void setCharOpacity(int index, float opacity);
+	void setAllCharOpacity(float opacity);
+
 	float getCharRotation(int index);
 	void setCharRotation(int index, float rotation);
-
-	void setAllCharScale(float scale);
-	void setAllCharOpacity(float opacity);
 	void setAllCharRotation(float rotation);
-	void setAllCharOffset(cocos2d::Point offset);
 
 #pragma mark - Run Custom Actions	//自定义动作
 	virtual bool checkCanAnimate();
