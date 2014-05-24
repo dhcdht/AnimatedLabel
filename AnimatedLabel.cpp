@@ -399,7 +399,7 @@ void AnimatedLabel::runActionOnSpriteAtIndex(int index, cocos2d::Action* action)
         return;
     }
     
-	Action* actionCopy = action->clone();
+	Action* actionCopy = action/*->clone()*/;
     Sprite* charSprite = getCharSprite(index);
 	if (nullptr != charSprite)
 	{
@@ -415,7 +415,7 @@ void AnimatedLabel::runActionOnAllSprites(cocos2d::Action* action)
 		return;
 	}
 
-	Action* actionCopy = action->clone();
+	Action* actionCopy = action/*->clone()*/;
 	for (int i = 0; i < getCharSpriteCount(); i++)
 	{
 		runActionOnSpriteAtIndex(i, actionCopy);
@@ -434,7 +434,7 @@ void AnimatedLabel::runActionOnSpriteAtIndex(
 		return;
 	}
 
-	FiniteTimeAction* actionCopy = action->clone();
+	FiniteTimeAction* actionCopy = action/*->clone()*/;
 	DelayTime* delayTime = DelayTime::create(delay);
 	Sequence* delayAndAction = Sequence::create(delayTime, actionCopy, callFuncOnCompletion, nullptr);
 
@@ -465,10 +465,17 @@ void AnimatedLabel::runActionOnAllSprites(
 		actionSequenceDelay += action->getDuration();
 	}
 
-	FiniteTimeAction* actionCopy = action->clone();
+	FiniteTimeAction* actionCopy = action/*->clone()*/;
 	for (int i = 0; i < getCharSpriteCount(); i++)
 	{
-		runActionOnSpriteAtIndex(i, actionCopy, delay + actionSequenceDelay*i, callFuncOnCompletion);
+		runActionOnSpriteAtIndex(i, actionCopy, delay + actionSequenceDelay*i);
+	}
+
+	if (nullptr != callFuncOnCompletion)
+	{
+		DelayTime* delayTime = DelayTime::create(delay + actionSequenceDelay*getCharSpriteCount() + actionCopy->getDuration());
+		Sequence* delayAndAction = Sequence::create(delayTime, actionCopy, callFuncOnCompletion, nullptr);
+		runAction(delayAndAction);
 	}
 }
 
