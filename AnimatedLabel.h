@@ -77,7 +77,7 @@ public:
 
 #pragma mark - Basic Functions For Character Sprite	//针对字符精灵的基本操作
 	int getCharSpriteCount();
-	cocos2d::CCSprite* getCharSprite(int index);
+	cocos2d::Sprite* getCharSprite(int index);
 
 	cocos2d::Point getCharOffset(int index);
 	void setCharOffset(int index, cocos2d::Point offset);

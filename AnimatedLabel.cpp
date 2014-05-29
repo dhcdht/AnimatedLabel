@@ -210,7 +210,7 @@ int AnimatedLabel::getCharSpriteCount()
 	return 0;
 }
 
-cocos2d::CCSprite* AnimatedLabel::getCharSprite(int index)
+cocos2d::Sprite* AnimatedLabel::getCharSprite(int index)
 {
 	if (index >= getCharSpriteCount() || index < 0)
 	{
