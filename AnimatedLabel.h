@@ -164,7 +164,9 @@ public:
 		float sequenceDelay = 0.0f,
 		cocos2d::CallFuncN* callFuncOnCompletion = nullptr);
     
-    void animateRainbow(float duration = 0.2f);
+    void animateRainbow(
+        float duration = 0.2f,
+        cocos2d::CallFuncN* callFuncOnCompletion = nullptr);
 };
 
 #endif // AnimatedLabel_h

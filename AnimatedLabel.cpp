@@ -473,8 +473,8 @@ void AnimatedLabel::runActionOnAllSprites(
 
 	if (nullptr != callFuncOnCompletion)
 	{
-		DelayTime* delayTime = DelayTime::create(delay + actionSequenceDelay*getCharSpriteCount() + actionCopy->getDuration());
-		Sequence* delayAndAction = Sequence::create(delayTime, actionCopy, callFuncOnCompletion, nullptr);
+		DelayTime* delayTime = DelayTime::create(delay + actionSequenceDelay*(getCharSpriteCount()-1) + actionCopy->getDuration());
+		Sequence* delayAndAction = Sequence::create(delayTime, callFuncOnCompletion, nullptr);
 		runAction(delayAndAction);
 	}
 }
@@ -552,7 +552,9 @@ void AnimatedLabel::animateSwell(float durationSwell /*= 0.2f*/, float durationR
 	runActionOnAllSprites(scaleSeq, delay, true, sequenceDelay, callFuncOnCompletion);
 }
 
-void AnimatedLabel::animateRainbow(float duration /*= 0.2f*/)
+void AnimatedLabel::animateRainbow(
+    float duration /*= 0.2f*/,
+    cocos2d::CallFuncN* callFuncOnCompletion /*= nullptr*/)
 {
     TintTo *red = TintTo::create(duration, 255, 0, 0);
     TintTo *orange = TintTo::create(duration, 255, 153, 51);
@@ -565,5 +567,5 @@ void AnimatedLabel::animateRainbow(float duration /*= 0.2f*/)
     
     Sequence *rainbow = Sequence::create(red, orange, yellow, green, blue, purple, pink, white, NULL);
     
-    runActionOnAllSprites(rainbow, 0.0f, true, -duration * 7);
+    runActionOnAllSprites(rainbow, 0.0f, true, -duration * 7, callFuncOnCompletion);
 }
