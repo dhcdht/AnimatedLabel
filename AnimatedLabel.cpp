@@ -13,9 +13,9 @@ using namespace cocos2d;
 
 
 AnimatedLabel::AnimatedLabel(
-	cocos2d::FontAtlas* atlas /*= nullptr*/,
-	cocos2d::TextHAlignment hAlignment /*= cocos2d::TextHAlignment::LEFT*/,
-	cocos2d::TextVAlignment vAlignment /*= cocos2d::TextVAlignment::TOP*/,
+	FontAtlas* atlas /*= nullptr*/,
+	TextHAlignment hAlignment /*= TextHAlignment::LEFT*/,
+	TextVAlignment vAlignment /*= TextVAlignment::TOP*/,
 	bool useDistanceField /*= false*/,
 	bool useA8Shader /*= false*/)
 	:Label(atlas, hAlignment, vAlignment, useDistanceField, useA8Shader)
@@ -40,9 +40,9 @@ AnimatedLabel* AnimatedLabel::createWithSystemFont(
 	const std::string& text, 
 	const std::string& font, 
 	float fontSize,
-	const cocos2d::Size& dimensions /*= cocos2d::Size::ZERO*/,
-	cocos2d::TextHAlignment hAlignment /*= cocos2d::TextHAlignment::LEFT*/,
-	cocos2d::TextVAlignment vAlignment /*= cocos2d::TextVAlignment::TOP*/)
+	const Size& dimensions /*= Size::ZERO*/,
+	TextHAlignment hAlignment /*= TextHAlignment::LEFT*/,
+	TextVAlignment vAlignment /*= TextVAlignment::TOP*/)
 {
 	AnimatedLabel* ret = new AnimatedLabel(nullptr, hAlignment, vAlignment);
 
@@ -66,9 +66,9 @@ AnimatedLabel* AnimatedLabel::createWithTTF(
 	const std::string& text,
 	const std::string& fontFile,
 	float fontSize,
-	const cocos2d::Size& dimensions /*= cocos2d::Size::ZERO*/, 
-	cocos2d::TextHAlignment hAlignment /*= cocos2d::TextHAlignment::LEFT*/, 
-	cocos2d::TextVAlignment vAlignment /*= cocos2d::TextVAlignment::TOP*/)
+	const Size& dimensions /*= Size::ZERO*/, 
+	TextHAlignment hAlignment /*= TextHAlignment::LEFT*/, 
+	TextVAlignment vAlignment /*= TextVAlignment::TOP*/)
 {
 	AnimatedLabel* ret = new AnimatedLabel(nullptr, hAlignment, vAlignment);
 
@@ -94,9 +94,9 @@ AnimatedLabel* AnimatedLabel::createWithTTF(
 }
 
 AnimatedLabel* AnimatedLabel::createWithTTF(
-	const cocos2d::TTFConfig& ttfConfig,
+	const TTFConfig& ttfConfig,
 	const std::string& text,
-	cocos2d::TextHAlignment alignment /*= cocos2d::TextHAlignment::LEFT*/,
+	TextHAlignment alignment /*= TextHAlignment::LEFT*/,
 	int maxLineWidth /*= 0*/)
 {
 	AnimatedLabel* ret = new AnimatedLabel(nullptr, alignment);
@@ -120,9 +120,9 @@ AnimatedLabel* AnimatedLabel::createWithTTF(
 AnimatedLabel* AnimatedLabel::createWithBMFont(
 	const std::string& bmfontFilePath,
 	const std::string& text, 
-	const cocos2d::TextHAlignment& alignment /*= cocos2d::TextHAlignment::LEFT*/, 
+	const TextHAlignment& alignment /*= TextHAlignment::LEFT*/, 
 	int maxLineWidth /*= 0*/,
-	const cocos2d::Point& imageOffset /*= cocos2d::Point::ZERO*/)
+	const Point& imageOffset /*= Point::ZERO*/)
 {
 	AnimatedLabel* ret = new AnimatedLabel(nullptr, alignment);
 
@@ -162,7 +162,7 @@ AnimatedLabel* AnimatedLabel::createWithCharMap(
 }
 
 AnimatedLabel * AnimatedLabel::createWithCharMap(
-	cocos2d::Texture2D* texture, 
+	Texture2D* texture, 
 	int itemWidth, 
 	int itemHeight, 
 	int startCharMap)
@@ -210,18 +210,18 @@ int AnimatedLabel::getCharSpriteCount()
 	return 0;
 }
 
-cocos2d::Sprite* AnimatedLabel::getCharSprite(int index)
+Sprite* AnimatedLabel::getCharSprite(int index)
 {
 	if (index >= getCharSpriteCount() || index < 0)
 	{
-		cocos2d::log("AnimatedLabel::getCharSprite - index out of bounds");
+		log("AnimatedLabel::getCharSprite - index out of bounds");
 		return nullptr;
 	}
 
 	return getLetter(index);
 }
 
-cocos2d::Point AnimatedLabel::getCharOffset(int index)
+Point AnimatedLabel::getCharOffset(int index)
 {
 	Sprite* charSprite = getCharSprite(index);
 	if (nullptr == charSprite)
@@ -232,7 +232,7 @@ cocos2d::Point AnimatedLabel::getCharOffset(int index)
 	return charSprite->getPosition();
 }
 
-void AnimatedLabel::setCharOffset(int index, cocos2d::Point offset)
+void AnimatedLabel::setCharOffset(int index, Point offset)
 {
 	Sprite* charSprite = getCharSprite(index);
 	if (nullptr == charSprite)
@@ -243,7 +243,7 @@ void AnimatedLabel::setCharOffset(int index, cocos2d::Point offset)
 	charSprite->setPosition(offset);
 }
 
-void AnimatedLabel::setAllCharOffset(cocos2d::Point offset)
+void AnimatedLabel::setAllCharOffset(Point offset)
 {
 	for (int i = 0; i < getCharSpriteCount(); i++)
 	{
@@ -251,7 +251,7 @@ void AnimatedLabel::setAllCharOffset(cocos2d::Point offset)
 	}
 }
 
-void AnimatedLabel::setCharColor(int index, cocos2d::Color3B color)
+void AnimatedLabel::setCharColor(int index, Color3B color)
 {
 	Sprite* charSprite = getCharSprite(index);
 	if (nullptr == charSprite)
@@ -262,7 +262,7 @@ void AnimatedLabel::setCharColor(int index, cocos2d::Color3B color)
 	charSprite->setColor(color);
 }
 
-cocos2d::Color3B AnimatedLabel::getCharColor(int index)
+Color3B AnimatedLabel::getCharColor(int index)
 {
 	Sprite* charSprite = getCharSprite(index);
 	if (nullptr == charSprite)
@@ -273,7 +273,7 @@ cocos2d::Color3B AnimatedLabel::getCharColor(int index)
 	return charSprite->getColor();
 }
 
-void AnimatedLabel::setAllCharColor(cocos2d::Color3B color)
+void AnimatedLabel::setAllCharColor(Color3B color)
 {
 	for (int i = 0; i < getCharSpriteCount(); i++)
 	{
@@ -385,21 +385,21 @@ bool AnimatedLabel::checkCanAnimate()
 	return false;
 }
 
-void AnimatedLabel::runActionOnSpriteAtIndex(int index, cocos2d::Action* action)
+void AnimatedLabel::runActionOnSpriteAtIndex(int index, Action* action)
 {
 	if (!checkCanAnimate())
 	{
-		cocos2d::log("AnimatedLabel::runActionOnSpriteAtIndex - label not animatable");
+		log("AnimatedLabel::runActionOnSpriteAtIndex - label not animatable");
 		return;
 	}
 	
     if (index >= getCharSpriteCount() || index < 0)
 	{
-        cocos2d::log("AnimatedLabel::runActionOnSpriteAtIndex - index out of bounds");
+        log("AnimatedLabel::runActionOnSpriteAtIndex - index out of bounds");
         return;
     }
     
-	Action* actionCopy = action/*->clone()*/;
+	Action* actionCopy = action->clone();
     Sprite* charSprite = getCharSprite(index);
 	if (nullptr != charSprite)
 	{
@@ -407,15 +407,15 @@ void AnimatedLabel::runActionOnSpriteAtIndex(int index, cocos2d::Action* action)
 	}
 }
 
-void AnimatedLabel::runActionOnAllSprites(cocos2d::Action* action)
+void AnimatedLabel::runActionOnAllSprites(Action* action)
 {
 	if (!checkCanAnimate())
 	{
-		cocos2d::log("AnimatedLabel::runActionOnAllSprites - label not animatable");
+		log("AnimatedLabel::runActionOnAllSprites - label not animatable");
 		return;
 	}
 
-	Action* actionCopy = action/*->clone()*/;
+	Action* actionCopy = action->clone();
 	for (int i = 0; i < getCharSpriteCount(); i++)
 	{
 		runActionOnSpriteAtIndex(i, actionCopy);
@@ -424,17 +424,17 @@ void AnimatedLabel::runActionOnAllSprites(cocos2d::Action* action)
 
 void AnimatedLabel::runActionOnSpriteAtIndex(
 	int index,
-	cocos2d::FiniteTimeAction* action,
+	FiniteTimeAction* action,
 	float delay /*= 0.0f*/,
-	cocos2d::CallFuncN* callFuncOnCompletion /*= nullptr*/)
+	CallFuncN* callFuncOnCompletion /*= nullptr*/)
 {
 	if (!checkCanAnimate())
 	{
-		cocos2d::log("AnimatedLabel::runActionOnSpriteAtIndex - label not animatable");
+		log("AnimatedLabel::runActionOnSpriteAtIndex - label not animatable");
 		return;
 	}
 
-	FiniteTimeAction* actionCopy = action/*->clone()*/;
+	FiniteTimeAction* actionCopy = action->clone();
 	DelayTime* delayTime = DelayTime::create(delay);
 	Sequence* delayAndAction = Sequence::create(delayTime, actionCopy, callFuncOnCompletion, nullptr);
 
@@ -446,15 +446,15 @@ void AnimatedLabel::runActionOnSpriteAtIndex(
 }
 
 void AnimatedLabel::runActionOnAllSprites(
-	cocos2d::FiniteTimeAction* action, 
+	FiniteTimeAction* action, 
 	float delay /*= 0.0f*/,
 	bool isSequentially /*= true*/,
 	float sequenceDelay /*= 0.0f*/,
-	cocos2d::CallFuncN* callFuncOnCompletion /*= nullptr*/)
+	CallFuncN* callFuncOnCompletion /*= nullptr*/)
 {
 	if (!checkCanAnimate())
 	{
-		cocos2d::log("AnimatedLabel::runActionOnAllSprites - label not animatable");
+		log("AnimatedLabel::runActionOnAllSprites - label not animatable");
 		return;
 	}
 
@@ -465,7 +465,7 @@ void AnimatedLabel::runActionOnAllSprites(
 		actionSequenceDelay += action->getDuration();
 	}
 
-	FiniteTimeAction* actionCopy = action/*->clone()*/;
+	FiniteTimeAction* actionCopy = action->clone();
 	for (int i = 0; i < getCharSpriteCount(); i++)
 	{
 		runActionOnSpriteAtIndex(i, actionCopy, delay + actionSequenceDelay*i);
@@ -480,8 +480,8 @@ void AnimatedLabel::runActionOnAllSprites(
 }
 
 #pragma mark - Common Animation	//常用动画
-cocos2d::ActionInterval* AnimatedLabel::createEaseAction(
-	cocos2d::ActionInterval* action,
+ActionInterval* AnimatedLabel::createEaseAction(
+	ActionInterval* action,
 	LabelAnimationType animationType /*= LabelAnimationLinear*/,
 	float animationRate /*= 1.0f*/)
 {
@@ -512,7 +512,7 @@ cocos2d::ActionInterval* AnimatedLabel::createEaseAction(
 	return ret;
 }
 
-void AnimatedLabel::animateMoveBy(float duration, cocos2d::Point moveByDistance, float delay /*= 0.0f*/, bool isSequentially /*= true*/, float sequenceDelay /*= 0.0f*/, LabelAnimationType animationType /*= LabelAnimationLinear*/, float animationRate /*= 1.0f*/, cocos2d::CallFuncN* callFuncOnCompletion /*= nullptr*/)
+void AnimatedLabel::animateMoveBy(float duration, Point moveByDistance, float delay /*= 0.0f*/, bool isSequentially /*= true*/, float sequenceDelay /*= 0.0f*/, LabelAnimationType animationType /*= LabelAnimationLinear*/, float animationRate /*= 1.0f*/, CallFuncN* callFuncOnCompletion /*= nullptr*/)
 {
 	setPosition(getPosition() + moveByDistance);
 	for (int i = 0; i < getCharSpriteCount(); i++)
@@ -526,13 +526,13 @@ void AnimatedLabel::animateMoveBy(float duration, cocos2d::Point moveByDistance,
 	runActionOnAllSprites(easeAction, delay, isSequentially, sequenceDelay, callFuncOnCompletion);
 }
 
-void AnimatedLabel::animateMoveTo(float duration, cocos2d::Point moveToPosition, float delay /*= 0.0f*/, bool isSequentially /*= true*/, float sequenceDelay /*= 0.0f*/, LabelAnimationType animationType /*= LabelAnimationLinear*/, float animationRate /*= 1.0f*/, cocos2d::CallFuncN* callFuncOnCompletion /*= nullptr*/)
+void AnimatedLabel::animateMoveTo(float duration, Point moveToPosition, float delay /*= 0.0f*/, bool isSequentially /*= true*/, float sequenceDelay /*= 0.0f*/, LabelAnimationType animationType /*= LabelAnimationLinear*/, float animationRate /*= 1.0f*/, CallFuncN* callFuncOnCompletion /*= nullptr*/)
 {
 	Point moveByDistance = moveToPosition - getPosition();
 	animateMoveBy(duration, moveByDistance, delay, isSequentially, sequenceDelay, animationType, animationRate, callFuncOnCompletion);
 }
 
-void AnimatedLabel::animateTypewriter(float duration /*= 0.01f*/, float fromScale /*= 0.0f*/, float toScale /*= 1.0f*/, float delay /*= 0.0f*/, float sequenceDelay /*= 0.0f*/, LabelAnimationType animationType /*= LabelAnimationLinear*/, float animationRate /*= 1.0f*/, cocos2d::CallFuncN* callFuncOnCompletion /*= nullptr*/)
+void AnimatedLabel::animateTypewriter(float duration /*= 0.01f*/, float fromScale /*= 0.0f*/, float toScale /*= 1.0f*/, float delay /*= 0.0f*/, float sequenceDelay /*= 0.0f*/, LabelAnimationType animationType /*= LabelAnimationLinear*/, float animationRate /*= 1.0f*/, CallFuncN* callFuncOnCompletion /*= nullptr*/)
 {
 	setAllCharScale(fromScale);
 
@@ -541,13 +541,29 @@ void AnimatedLabel::animateTypewriter(float duration /*= 0.01f*/, float fromScal
 	runActionOnAllSprites(scaleTo, delay, true, sequenceDelay, callFuncOnCompletion);
 }
 
-void AnimatedLabel::animateSwell(float durationSwell /*= 0.2f*/, float durationReveal /*= 0.2f*/, float beginScale /*= 1.0f*/, float swellScale /*= 1.5f*/, float endScale /*= 1.0f*/, float delay /*= 0.0f*/, float sequenceDelay /*= 0.0f*/, cocos2d::CallFuncN* callFuncOnCompletion /*= nullptr*/)
+void AnimatedLabel::animateSwell(float durationSwell /*= 0.2f*/, float durationReveal /*= 0.2f*/, float beginScale /*= 1.0f*/, float swellScale /*= 1.5f*/, float endScale /*= 1.0f*/, float delay /*= 0.0f*/, float sequenceDelay /*= 0.0f*/, CallFuncN* callFuncOnCompletion /*= nullptr*/)
 {
 	setAllCharScale(beginScale);
 
-	cocos2d::ScaleTo *scaleUp = cocos2d::ScaleTo::create(durationSwell, swellScale);
-	cocos2d::ScaleTo *scaleDown = cocos2d::ScaleTo::create(durationReveal, endScale);
-	cocos2d::Sequence *scaleSeq = cocos2d::Sequence::create(scaleUp, scaleDown, NULL);
+	ScaleTo *scaleUp = ScaleTo::create(durationSwell, swellScale);
+	ScaleTo *scaleDown = ScaleTo::create(durationReveal, endScale);
+	Sequence *scaleSeq = Sequence::create(scaleUp, scaleDown, NULL);
 
 	runActionOnAllSprites(scaleSeq, delay, true, sequenceDelay, callFuncOnCompletion);
+}
+
+void AnimatedLabel::animateRainbow(float duration /*= 0.2f*/)
+{
+    TintTo *red = TintTo::create(duration, 255, 0, 0);
+    TintTo *orange = TintTo::create(duration, 255, 153, 51);
+    TintTo *yellow = TintTo::create(duration, 255, 255, 0);
+    TintTo *green = TintTo::create(duration, 0, 255, 0);
+    TintTo *blue = TintTo::create(duration, 0, 0, 255);
+    TintTo *purple = TintTo::create(duration, 102, 0, 204);
+    TintTo *pink = TintTo::create(duration, 255, 51, 255);
+    TintTo *white = TintTo::create(duration, 255, 255, 255);
+    
+    Sequence *rainbow = Sequence::create(red, orange, yellow, green, blue, purple, pink, white, NULL);
+    
+    runActionOnAllSprites(rainbow, 0.0f, true, -duration * 7);
 }
